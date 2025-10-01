@@ -15,7 +15,7 @@ RUN printf 'source /opt/venv/bin/activate\n' > /etc/profile.d/venv.sh
 RUN python -m pip install --upgrade pip setuptools wheel
 
 # ROCm + PyTorch (TheRock, include torchaudio for resolver; remove later)
-python -m pip install \
+RUN python -m pip install \
   --index-url https://rocm.nightlies.amd.com/v2/gfx1151/ \
   --pre torch torchaudio torchvision
 
