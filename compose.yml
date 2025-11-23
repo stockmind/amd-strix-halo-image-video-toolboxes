@@ -11,11 +11,11 @@ services:
       - render
     security_opt:
       - seccomp=unconfined
-    user: "${UID}:${GID}"
+    user: "${UID:-1000}:${GID:-1000}"  # Uses environment variables or fallback to 1000
     environment:
+      - UID=${UID:-1000}
+      - GID=${GID:-1000}
       - HOME=/root
-      - UID=${UID}
-      - GID=${GID}
     command: >
       python main.py
       --port 8000
