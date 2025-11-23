@@ -1,0 +1,24 @@
+services:
+  comfyui:
+    build: .
+    container_name: comfyui
+    working_dir: /opt/ComfyUI
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/kfd:/dev/kfd
+    group_add:
+      - video
+      - render
+    security_opt:
+      - seccomp=unconfined
+    command: >
+      python main.py
+      --port 8000
+      --base-directory /data/comfy-ui
+      --disable-mmap
+    volumes:
+      - ~/comfy-ui:/data/comfy-ui
+    ports:
+      - "8000:8000"
+    environment:
+      - HOME=/root
