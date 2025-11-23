@@ -14,6 +14,7 @@ services:
     command: >
       python main.py
       --port 8000
+      --listen 0.0.0.0
       --base-directory /data/comfy-ui
       --disable-mmap
     volumes:
