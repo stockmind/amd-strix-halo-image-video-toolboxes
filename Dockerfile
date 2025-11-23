@@ -30,6 +30,7 @@ WORKDIR /opt/ComfyUI
 RUN python -m pip install -r requirements.txt && \
     python -m pip install --prefer-binary \
       pillow opencv-python-headless imageio imageio-ffmpeg scipy "huggingface_hub[hf_transfer]" pyyaml
+
 # Use COPY link mode because we run with --base-directory in user's home, not in toolbox
 ENV UV_LINK_MODE="copy"
 
