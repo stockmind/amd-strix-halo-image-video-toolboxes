@@ -15,10 +15,9 @@ RUN printf 'source /opt/venv/bin/activate\n' > /etc/profile.d/venv.sh
 RUN python -m pip install --upgrade pip setuptools wheel
 
 # ROCm + PyTorch (TheRock, include torchaudio for resolver; remove later)
-ARG ROCM_INDEX=https://rocm.nightlies.amd.com/v2/gfx1151/
-RUN python -m pip install --index-url ${ROCM_INDEX} 'rocm[libraries,devel]' && \
-    python -m pip install --index-url ${ROCM_INDEX} \
-      torch torchvision torchaudio==2.7.1a0 pytorch-triton-rocm numpy
+python -m pip install \
+  --index-url https://rocm.nightlies.amd.com/v2/gfx1151/ \
+  --pre torch torchaudio torchvision
 
 WORKDIR /opt
 
