@@ -1,22 +1,30 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 set -euo pipefail
 
-# Setup $HOME comfyui base directory, copying models template provided in repo
-mkdir -p "$HOME/comfy-ui"
-cp -r /opt/ComfyUI/models "$HOME/comfy-ui/models"
-# Install essential extensions, or don't if they're already present.
-[ ! -d "$HOME/comfy-ui/custom_nodes/ComfyUI_essentials" ] && git clone  https://github.com/cubiq/ComfyUI_essentials "$HOME/comfy-ui/custom_nodes/ComfyUI_essentials"
-[ ! -d "$HOME/comfy-ui/custom_nodes/ComfyUI-AMDGPUMonitor" ] && git clone  https://github.com/kyuz0/ComfyUI-AMDGPUMonitor "$HOME/comfy-ui/custom_nodes/ComfyUI-AMDGPUMonitor"
-[ ! -d "$HOME/comfy-ui/custom_nodes/ComfyUI-Manager" ] && git clone  https://github.com/Comfy-Org/ComfyUI-Manager "$HOME/comfy-ui/custom_nodes/ComfyUI-Manager"
+BASE_DIR="/data/comfy-ui"
+COMFYUI_DIR="/opt/ComfyUI"
 
-# Install all requirements as needed.
-for dir in $HOME/comfy-ui/custom_nodes/* ; do
-    pushd $dir
-    [ -f requirements.txt ] && pip install -r requirements.txt
-    popd
+# Setup base directory and copy models
+mkdir -p "$BASE_DIR"
+cp -r "$COMFYUI_DIR/models" "$BASE_DIR/models"
+
+# Clone essential extensions if not already present
+declare -A repos=(
+  ["ComfyUI_essentials"]="https://github.com/cubiq/ComfyUI_essentials"
+  ["ComfyUI-AMDGPUMonitor"]="https://github.com/kyuz0/ComfyUI-AMDGPUMonitor"
+  ["ComfyUI-Manager"]="https://github.com/Comfy-Org/ComfyUI-Manager"
+)
+
+for name in "${!repos[@]}"; do
+  target_dir="$BASE_DIR/custom_nodes/$name"
+  if [ ! -d "$target_dir" ]; then
+    git clone "${repos[$name]}" "$target_dir"
+  fi
 done
 
-# Change ownership of ComfyUI to enable ComfyUI manager to use git to update ComfyUI.
-sudo chown -R $USER /opt/ComfyUI
-
-cd /opt/ComfyUI
+# Install requirements in each custom_nodes subdirectory
+for dir in "$BASE_DIR/custom_nodes"/*/ ; do
+  if [ -f "${dir}requirements.txt" ]; then
+    pip install -r "${dir}requirements.txt"
+  fi
+done
