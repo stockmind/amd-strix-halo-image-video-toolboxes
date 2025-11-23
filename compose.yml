@@ -13,6 +13,7 @@ services:
       - seccomp=unconfined
     user: "${UID}:${GID}"
     environment:
+      - HOME=/root
       - UID=${UID}
       - GID=${GID}
     command: >
@@ -25,5 +26,3 @@ services:
       - ~/comfy-ui:/data/comfy-ui
     ports:
       - "8000:8000"
-    environment:
-      - HOME=/root
