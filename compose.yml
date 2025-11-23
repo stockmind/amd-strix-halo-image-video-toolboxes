@@ -11,6 +11,10 @@ services:
       - render
     security_opt:
       - seccomp=unconfined
+    user: "${UID}:${GID}"
+    environment:
+      - UID=${UID}
+      - GID=${GID}
     command: >
       python main.py
       --port 8000
