@@ -404,7 +404,6 @@ You can load ready-made workflow files directly into ComfyUI:
 ### 9.4 Launch as container with podman
 
 ```shell
-podman-compose run --rm comfyui /bin/bash -c /opt/setup_comfy_ui.sh
 podman-compose up -d
 ```
 
