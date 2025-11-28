@@ -21,6 +21,7 @@ services:
           --port 8010 \
           --listen 0.0.0.0 \
           --base-directory /opt/comfy-ui-data \
+          --output-directory $HOME/comfy-outputs \
           --disable-mmap
       "
     volumes:
