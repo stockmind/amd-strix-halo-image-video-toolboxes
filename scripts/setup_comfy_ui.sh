@@ -13,6 +13,14 @@ declare -A repos=(
   ["ComfyUI_essentials"]="https://github.com/cubiq/ComfyUI_essentials"
   ["ComfyUI-AMDGPUMonitor"]="https://github.com/kyuz0/ComfyUI-AMDGPUMonitor"
   ["ComfyUI-Manager"]="https://github.com/Comfy-Org/ComfyUI-Manager"
+  # Additional useful repos
+  ["ComfyUI-WanVideoWrapper"]="https://github.com/kijai/ComfyUI-WanVideoWrapper.git"
+  ["ComfyUI-VideoHelperSuite"]="https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git"
+  ["rgthree-comfy"]="https://github.com/rgthree/rgthree-comfy.git"
+  ["ComfyUI-KJNodes"]="https://github.com/kijai/ComfyUI-KJNodes.git"
+  ["ComfyUI-AnimateDiff-Evolved"]="https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved"
+  ["ComfyUI-Advanced-ControlNet"]="https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
+  ["ComfyUI-SeedVR2_VideoUpscaler"]="https://github.com/numz/ComfyUI-SeedVR2_VideoUpscaler"
 )
 
 for name in "${!repos[@]}"; do
