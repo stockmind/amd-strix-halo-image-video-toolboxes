@@ -37,4 +37,4 @@ for dir in "$BASE_DIR/custom_nodes"/*/ ; do
   fi
 done
 
-pip install flash-attn --no-build-isolation
+# pip install flash-attn --no-build-isolation
