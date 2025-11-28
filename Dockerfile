@@ -1,9 +1,17 @@
 FROM registry.fedoraproject.org/fedora:rawhide
 
+# Add rpmfusion for ffmpeg-full and proprietary codecs
+# https://rpmfusion.org/Configuration
+# https://rpmfusion.org/Howto/Multimedia
+RUN dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm \
+  && dnf config-manager setopt fedora-cisco-openh264.enabled=1 \
+  && dnf install -y ffmpeg --setopt=install_weak_deps=False --nodocs \
+  && dnf clean all && rm -rf /var/cache/dnf/*
+
 # Base packages (keep compilers/headers for Triton JIT at runtime)
 RUN dnf -y install --setopt=install_weak_deps=False --nodocs \
       libdrm-devel python3.13 python3.13-devel git rsync libatomic bash ca-certificates curl \
-      gcc gcc-c++ binutils make git ffmpeg-free \
+      gcc gcc-c++ binutils make git \
   && dnf clean all && rm -rf /var/cache/dnf/*
 
 # Python venv
@@ -25,7 +33,7 @@ WORKDIR /opt
 RUN python -m pip install transformers==4.56.2
 
 # ComfyUI - Installing full clone to enable self-updating with Comfy-Manager
-RUN git clone https://github.com/comfyanonymous/ComfyUI.git /opt/ComfyUI 
+RUN git clone https://github.com/comfyanonymous/ComfyUI.git /opt/ComfyUI
 WORKDIR /opt/ComfyUI
 RUN python -m pip install -r requirements.txt && \
     python -m pip install --prefer-binary \
@@ -43,7 +51,7 @@ RUN git clone --depth=1 https://github.com/kyuz0/qwen-image-studio /opt/qwen-ima
 RUN git clone --depth=1 https://github.com/kyuz0/wan-video-studio /opt/wan-video-studio && \
     python -m pip install --prefer-binary \
       opencv-python-headless diffusers tokenizers accelerate \
-      imageio[ffmpeg] easydict ftfy dashscope imageio-ffmpeg decord librosa 
+      imageio[ffmpeg] easydict ftfy dashscope imageio-ffmpeg decord librosa
 
 # Permissions & trims (keep compilers/headers)
 RUN chmod -R a+rwX /opt && chmod +x /opt/*.sh || true && \
@@ -70,4 +78,3 @@ COPY --chmod='0644' scripts/zz-venv-last.sh /etc/profile.d/zz-venv-last.sh
 RUN printf 'ulimit -S -c 0\n' > /etc/profile.d/90-nocoredump.sh && chmod 0644 /etc/profile.d/90-nocoredump.sh
 
 CMD ["/bin/bash"]
-
