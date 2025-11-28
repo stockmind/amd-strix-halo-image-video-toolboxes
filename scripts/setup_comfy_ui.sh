@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-BASE_DIR="/data/comfy-ui"
+BASE_DIR="/opt/comfy-ui-data"
 COMFYUI_DIR="/opt/ComfyUI"
 
 # Setup base directory and copy models
