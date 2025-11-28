@@ -14,7 +14,7 @@ services:
     environment:
       - HOME=/root
     command: >
-      python main.py
+      /opt/setup_comfy_ui.sh && python main.py
       --port 8010
       --listen 0.0.0.0
       --base-directory /opt/comfy-ui-data
