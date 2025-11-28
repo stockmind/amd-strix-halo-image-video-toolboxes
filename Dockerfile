@@ -55,7 +55,6 @@ RUN git clone --depth=1 https://github.com/kyuz0/wan-video-studio /opt/wan-video
 
 # Install useful modules
 RUN pip install onnxruntime sageattention==1.0.6 
-RUN pip install flash-attn --no-build-isolation
 
 # Permissions & trims (keep compilers/headers)
 RUN chmod -R a+rwX /opt && chmod +x /opt/*.sh || true && \
