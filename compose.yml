@@ -14,11 +14,14 @@ services:
     environment:
       - HOME=/root
     command: >
-      /opt/setup_comfy_ui.sh && python main.py
-      --port 8010
-      --listen 0.0.0.0
-      --base-directory /opt/comfy-ui-data
-      --disable-mmap
+      sh -c "
+        /opt/setup_comfy_ui.sh && \
+        python main.py \
+          --port 8010 \
+          --listen 0.0.0.0 \
+          --base-directory /opt/comfy-ui-data \
+          --disable-mmap
+      "
     volumes:
       - ~/comfy-ui:/opt/comfy-ui-data:z,rw
       - ~/comfy-outputs:$HOME/comfy-outputs
