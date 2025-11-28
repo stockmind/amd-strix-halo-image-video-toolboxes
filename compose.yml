@@ -11,18 +11,17 @@ services:
       - render
     security_opt:
       - seccomp=unconfined
-    user: "${UID:-1000}:${GID:-1000}"  # Uses environment variables or fallback to 1000
+      - label=disable
     environment:
-      - UID=${UID:-1000}
-      - GID=${GID:-1000}
       - HOME=/root
     command: >
       python main.py
       --port 8010
       --listen 0.0.0.0
-      --base-directory /data/comfy-ui
+      --base-directory /opt/comfy-ui-data
       --disable-mmap
     volumes:
-      - ~/comfy-ui:/data/comfy-ui
+      - ~/comfy-ui:/opt/comfy-ui-data:z,rw
+      - ~/comfy-outputs:$HOME/comfy-outputs
     ports:
       - "8010:8010"
