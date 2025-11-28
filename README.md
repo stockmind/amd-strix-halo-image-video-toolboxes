@@ -401,6 +401,13 @@ You can load ready-made workflow files directly into ComfyUI:
 * Qwen Image example: [https://comfyanonymous.github.io/ComfyUI\_examples/qwen\_image/](https://comfyanonymous.github.io/ComfyUI_examples/qwen_image/)
 * Wan2.2 example: [https://comfyanonymous.github.io/ComfyUI\_examples/wan22/](https://comfyanonymous.github.io/ComfyUI_examples/wan22/)
 
+### 9.4 Launch as container with podman
+
+```shell
+podman-compose run --rm comfyui /bin/bash -c /opt/setup_comfy_ui.sh
+podman-compose up -d
+```
+
 ---
 
 ## 10. Stability and Performance Notes
