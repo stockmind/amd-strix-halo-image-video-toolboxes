@@ -53,6 +53,10 @@ RUN git clone --depth=1 https://github.com/kyuz0/wan-video-studio /opt/wan-video
       opencv-python-headless diffusers tokenizers accelerate \
       imageio[ffmpeg] easydict ftfy dashscope imageio-ffmpeg decord librosa
 
+# Install useful modules
+RUN pip install onnxruntime sageattention==1.0.6 
+RUN pip install flash-attn --no-build-isolation
+
 # Permissions & trims (keep compilers/headers)
 RUN chmod -R a+rwX /opt && chmod +x /opt/*.sh || true && \
     find /opt/venv -type f -name "*.so" -exec strip -s {} + 2>/dev/null || true && \
