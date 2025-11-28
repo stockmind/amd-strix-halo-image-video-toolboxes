@@ -29,8 +29,7 @@ RUN python -m pip install \
 
 WORKDIR /opt
 
-# Pin specific transformers version
-RUN python -m pip install transformers==4.56.2
+RUN python -m pip install transformers
 
 # ComfyUI - Installing full clone to enable self-updating with Comfy-Manager
 RUN git clone https://github.com/comfyanonymous/ComfyUI.git /opt/ComfyUI
