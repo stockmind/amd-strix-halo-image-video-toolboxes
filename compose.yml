@@ -16,6 +16,7 @@ services:
       - HOME=/root
     command: >
       sh -c "
+        /opt/setup_comfy_ui.sh || \
         python main.py \
           --port 8010 \
           --listen 0.0.0.0 \
