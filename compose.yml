@@ -26,6 +26,6 @@ services:
       "
     volumes:
       - ~/comfy-ui:/opt/comfy-ui-data:z,rw
-      - ~/comfy-outputs:$HOME/comfy-outputs
+      - ~/comfy-outputs:$HOME/comfy-outputs:z,rw
     ports:
       - "8010:8010"
