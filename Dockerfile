@@ -5,7 +5,7 @@ FROM registry.fedoraproject.org/fedora:rawhide
 # https://rpmfusion.org/Howto/Multimedia
 RUN dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm \
   && dnf config-manager setopt fedora-cisco-openh264.enabled=1 \
-  && dnf install -y ffmpeg --setopt=install_weak_deps=False --nodocs \
+  && dnf install -y ffmpeg --nodocs \
   && dnf clean all && rm -rf /var/cache/dnf/*
 
 # Base packages (keep compilers/headers for Triton JIT at runtime)
