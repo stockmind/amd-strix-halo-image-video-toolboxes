@@ -21,6 +21,12 @@ declare -A repos=(
   ["ComfyUI-AnimateDiff-Evolved"]="https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved"
   ["ComfyUI-Advanced-ControlNet"]="https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet"
   ["ComfyUI-SeedVR2_VideoUpscaler"]="https://github.com/numz/ComfyUI-SeedVR2_VideoUpscaler"
+  ["ComfyUI_Comfyroll_CustomNodes"]="https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes"
+  ["ComfyUI-LTXVideo"]="https://github.com/Lightricks/ComfyUI-LTXVideo"
+  ["ComfyUI-GGUF-FantasyTalking"]="https://github.com/kael558/ComfyUI-GGUF-FantasyTalking"
+  ["comfyui-vrgamedevgirl"]="https://github.com/vrgamegirl19/comfyui-vrgamedevgirl"
+  ["RES4LYF"]="https://github.com/ClownsharkBatwing/RES4LYF"
+  ["ComfyUI-Crystools"]="https://github.com/crystian/ComfyUI-Crystools"
 )
 
 for name in "${!repos[@]}"; do
