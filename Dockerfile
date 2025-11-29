@@ -79,4 +79,7 @@ COPY --chmod='0644' scripts/zz-venv-last.sh /etc/profile.d/zz-venv-last.sh
 # Disable core dumps in interactive shells (helps with recovering faster from ROCm crashes)
 RUN printf 'ulimit -S -c 0\n' > /etc/profile.d/90-nocoredump.sh && chmod 0644 /etc/profile.d/90-nocoredump.sh
 
+# Layer deps as part of image
+RUN /opt/setup_comfy_ui.sh
+
 CMD ["/bin/bash"]
