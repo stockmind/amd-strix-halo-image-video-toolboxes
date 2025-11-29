@@ -16,7 +16,6 @@ services:
       - HOME=/root
     command: >
       sh -c "
-        /opt/setup_comfy_ui.sh || \
         python main.py \
           --port 8010 \
           --listen 0.0.0.0 \
@@ -26,6 +25,7 @@ services:
       "
     volumes:
       - ~/comfy-ui:/opt/comfy-ui-data:z,rw
+      - ~/comfy-user:/opt/ComfyUI/user:z,rw
       - ~/comfy-outputs:$HOME/comfy-outputs:z,rw
     ports:
       - "8010:8010"
