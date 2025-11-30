@@ -24,7 +24,6 @@ services:
           --output-directory $HOME/comfy-outputs \
           --disable-mmap \
           --reserve-vram 3 \
-          --highvram \
           --gpu-only
       "
     volumes:
