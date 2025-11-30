@@ -22,7 +22,10 @@ services:
           --listen 0.0.0.0 \
           --base-directory /opt/comfy-ui-data \
           --output-directory $HOME/comfy-outputs \
-          --disable-mmap
+          --disable-mmap \
+          --reserve-vram 3 \
+          --highvram \
+          --gpu-only
       "
     volumes:
       - ~/comfy-ui:/opt/comfy-ui-data:z,rw
