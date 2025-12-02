@@ -27,6 +27,7 @@ declare -A repos=(
   ["comfyui-vrgamedevgirl"]="https://github.com/vrgamegirl19/comfyui-vrgamedevgirl"
   ["RES4LYF"]="https://github.com/ClownsharkBatwing/RES4LYF"
   ["ComfyUI-Crystools"]="https://github.com/crystian/ComfyUI-Crystools"
+  ["ovum-cudnn-wrapper"]="https://github.com/sfinktah/ovum-cudnn-wrapper.git"
 )
 
 for name in "${!repos[@]}"; do
