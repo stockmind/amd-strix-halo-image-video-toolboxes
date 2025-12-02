@@ -82,7 +82,7 @@ RUN printf 'ulimit -S -c 0\n' > /etc/profile.d/90-nocoredump.sh && chmod 0644 /e
 # Add flash attention related env variables
 ENV FLASH_ATTENTION_TRITON_AMD_ENABLE="TRUE" 
 RUN export TRITON_HIP_LLD_PATH="$(hipconfig -p)/lib/llvm/bin/ld.lld" && \
-    echo "export TRITON_HIP_LLD_PATH=\"$TRITON_HIP_LLD_PATH\"" >> /etc/environment
+    echo "export TRITON_HIP_LLD_PATH=\"$TRITON_HIP_LLD_PATH\"" >> /etc/profile.d/triton.sh
 
 # Layer deps as part of image
 RUN /opt/setup_comfy_ui.sh
