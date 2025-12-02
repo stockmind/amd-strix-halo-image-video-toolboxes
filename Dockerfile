@@ -81,7 +81,6 @@ RUN printf 'ulimit -S -c 0\n' > /etc/profile.d/90-nocoredump.sh && chmod 0644 /e
 
 # Add flash attention related env variables
 ENV FLASH_ATTENTION_TRITON_AMD_ENABLE="TRUE" 
-ENV FLASH_ATTENTION_TRITON_AMD_AUTOTUNE="TRUE"
 
 # Layer deps as part of image
 RUN /opt/setup_comfy_ui.sh
