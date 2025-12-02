@@ -81,8 +81,8 @@ RUN printf 'ulimit -S -c 0\n' > /etc/profile.d/90-nocoredump.sh && chmod 0644 /e
 
 # Add flash attention related env variables
 ENV FLASH_ATTENTION_TRITON_AMD_ENABLE="TRUE" 
-RUN ln -sf $(hipconfig -p) /opt/rocm
-ENV TRITON_HIP_LLD_PATH="/opt/rocm/lib/llvm/bin/ld.lld"
+RUN ln -sf $(hipconfig -p)/lib /opt/rocm
+ENV TRITON_HIP_LLD_PATH="/opt/rocm/llvm/bin/ld.lld"
 
 # Layer deps as part of image
 RUN /opt/setup_comfy_ui.sh
