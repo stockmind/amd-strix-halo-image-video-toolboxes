@@ -53,7 +53,7 @@ RUN git clone --depth=1 https://github.com/kyuz0/wan-video-studio /opt/wan-video
       imageio[ffmpeg] easydict ftfy dashscope imageio-ffmpeg decord librosa
 
 # Install useful modules
-RUN pip install onnx onnxruntime sageattention==1.0.6 
+RUN pip install onnx onnxruntime onnxruntime-gpu sageattention==1.0.6 triton==3.2.0
 
 # Permissions & trims (keep compilers/headers)
 RUN chmod -R a+rwX /opt && chmod +x /opt/*.sh || true && \
@@ -78,6 +78,10 @@ COPY --chmod='0644' scripts/zz-venv-last.sh /etc/profile.d/zz-venv-last.sh
 
 # Disable core dumps in interactive shells (helps with recovering faster from ROCm crashes)
 RUN printf 'ulimit -S -c 0\n' > /etc/profile.d/90-nocoredump.sh && chmod 0644 /etc/profile.d/90-nocoredump.sh
+
+# Add flash attention related env variables
+ENV FLASH_ATTENTION_TRITON_AMD_ENABLE="TRUE" 
+ENV FLASH_ATTENTION_TRITON_AMD_AUTOTUNE="TRUE"
 
 # Layer deps as part of image
 RUN /opt/setup_comfy_ui.sh
