@@ -53,6 +53,7 @@ services:
       "sh", "-c",
       "python webui.py \
          --port 8011 \
+         --listen 0.0.0.0 \
          --api"
       ]
     ports:
