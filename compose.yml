@@ -34,7 +34,8 @@ services:
       - "8010:8010"
 
   sdforge:
-    build: Dockerfile.sdforge
+    build: 
+      dockerfile: Dockerfile.sdforge
     container_name: sdforge
     working_dir: /opt/SD-WebUI-Forge-Classic
     restart: unless-stopped
