@@ -14,18 +14,18 @@ services:
       - seccomp=unconfined
     environment:
       - HOME=/root
-    command: >
-      sh -c "
-        /opt/setup_comfy_ui.sh || \
-        python main.py \
-          --port 8010 \
-          --listen 0.0.0.0 \
-          --base-directory /opt/comfy-ui-data \
-          --output-directory $HOME/comfy-outputs \
-          --disable-mmap \
-          --reserve-vram 3 \
-          --gpu-only
-      "
+    command: [
+      "sh", "-c",
+      "python main.py \
+         --port 8010 \
+         --listen 0.0.0.0 \
+         --base-directory /home/${USERNAME}/comfy-ui-data \
+         --output-directory /home/${USERNAME}/comfy-outputs \
+         --disable-mmap \
+         --reserve-vram 8 \
+         --use-pytorch-cross-attention \
+         --gpu-only"
+      ]
     volumes:
       - ~/comfy-ui:/opt/comfy-ui-data:z,rw
       - ~/comfy-user:/opt/ComfyUI/user:z,rw
