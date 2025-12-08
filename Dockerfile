@@ -80,7 +80,7 @@ COPY --chmod='0644' scripts/zz-venv-last.sh /etc/profile.d/zz-venv-last.sh
 RUN printf 'ulimit -S -c 0\n' > /etc/profile.d/90-nocoredump.sh && chmod 0644 /etc/profile.d/90-nocoredump.sh
 
 # Add flash attention related env variables
-ENV FLASH_ATTENTION_TRITON_AMD_ENABLE="TRUE" 
+#ENV FLASH_ATTENTION_TRITON_AMD_ENABLE="TRUE" 
 RUN ln -sf $(hipconfig -p)/lib /opt/rocm
 ENV TRITON_HIP_LLD_PATH="/opt/rocm/llvm/bin/ld.lld"
 
