@@ -19,8 +19,8 @@ services:
       "python main.py \
          --port 8010 \
          --listen 0.0.0.0 \
-         --base-directory /home/${USERNAME}/comfy-ui-data \
-         --output-directory /home/${USERNAME}/comfy-outputs \
+         --base-directory /opt/comfy-ui-data \
+         --output-directory /root/comfy-outputs \
          --disable-mmap \
          --reserve-vram 8 \
          --use-pytorch-cross-attention \
