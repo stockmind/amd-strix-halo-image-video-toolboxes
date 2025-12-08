@@ -51,7 +51,7 @@ services:
       - HOME=/root
     command: [
       "sh", "-c",
-      "python webui.py \
+      "python launch.py \
          --port 8011 \
          --listen 0.0.0.0 \
          --api"
