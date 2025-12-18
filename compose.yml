@@ -47,8 +47,6 @@ services:
       - render
     security_opt:
       - seccomp=unconfined
-    environment:
-      - HOME=/root
     command: [
       "sh", "-c",
       "python launch.py \
@@ -63,3 +61,27 @@ services:
       - ~/comfy-outputs/forge:/opt/SD-WebUI-Forge-Classic/output:z,rw
     ports:
       - "8011:8011"
+
+  swarmui:
+    build:
+      dockerfile: Dockerfile.sdforge
+    container_name: swarmui
+    working_dir: /opt/SwarmUI
+    restart: unless-stopped
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/kfd:/dev/kfd
+    group_add:
+      - video
+      - render
+    security_opt:
+      - seccomp=unconfined
+    command: [
+      "sh", "-c",
+      "./launch-linux.sh \
+         --port 7801 \
+         --launch_mode none \
+         --host 0.0.0.0"
+      ]
+    ports:
+      - "8012:7801"
