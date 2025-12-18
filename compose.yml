@@ -34,7 +34,7 @@ services:
       - "8010:8010"
 
   sdforge:
-    build: 
+    build:
       dockerfile: Dockerfile.sdforge
     container_name: sdforge
     working_dir: /opt/SD-WebUI-Forge-Classic
@@ -53,7 +53,13 @@ services:
       "sh", "-c",
       "python launch.py \
          --port 8011 \
+         --listen \
          --api"
       ]
+    volumes:
+      - ~/comfy-ui/models/diffusion_models:/opt/SD-WebUI-Forge-Classic/models/Stable-diffusion:z,rw
+      - ~/comfy-ui/models/embeddings:/opt/SD-WebUI-Forge-Classic/models/embeddings:z,rw
+      - ~/comfy-ui/models/loras:/opt/SD-WebUI-Forge-Classic/models/Lora:z,rw
+      - ~/comfy-outputs/forge:/opt/SD-WebUI-Forge-Classic/output:z,rw
     ports:
       - "8011:8011"
