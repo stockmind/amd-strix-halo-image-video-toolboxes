@@ -10,7 +10,7 @@ RUN dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-rele
 
 # Base packages (keep compilers/headers for Triton JIT at runtime)
 RUN dnf -y install --setopt=install_weak_deps=False --nodocs \
-      libdrm-devel python3.11 python3.11-devel git rsync libatomic bash ca-certificates curl \
+      libdrm-devel python3.11 python3.11-devel dotnet-sdk-8.0 git rsync libatomic bash ca-certificates curl \
       gcc gcc-c++ binutils make git \
   && dnf clean all && rm -rf /var/cache/dnf/*
 
