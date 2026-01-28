@@ -37,9 +37,10 @@ for name in "${!repos[@]}"; do
 done
 
 # Install requirements in each custom_nodes subdirectory
+# Filter out torch* dependencies on the fly
 for dir in "$BASE_DIR/custom_nodes"/*/ ; do
   if [ -f "${dir}requirements.txt" ]; then
-    pip install -r "${dir}requirements.txt"
+    grep -vE '^torch[^a-z]|^torch$' "${dir}requirements.txt" | pip install -r /dev/stdin || true
   fi
 done
 
