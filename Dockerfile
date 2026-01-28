@@ -53,7 +53,7 @@ RUN git clone --depth=1 https://github.com/kyuz0/wan-video-studio /opt/wan-video
       imageio[ffmpeg] easydict ftfy dashscope imageio-ffmpeg decord librosa
 
 # Install useful modules
-RUN pip install onnx onnxruntime onnxruntime-gpu sageattention==1.0.6 triton==3.2.0
+RUN pip install onnx onnxruntime onnxruntime-gpu sageattention triton
 
 # Permissions & trims (keep compilers/headers)
 RUN chmod -R a+rwX /opt && chmod +x /opt/*.sh || true && \
