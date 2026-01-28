@@ -20,6 +20,7 @@ ENV VIRTUAL_ENV=/opt/venv
 ENV PATH=/opt/venv/bin:$PATH
 ENV PIP_NO_CACHE_DIR=1
 RUN printf 'source /opt/venv/bin/activate\n' > /etc/profile.d/venv.sh
+
 RUN python -m pip install --upgrade pip setuptools wheel
 
 # ROCm + PyTorch (TheRock, include torchaudio for resolver; remove later)
@@ -29,26 +30,30 @@ RUN python -m pip install \
 
 WORKDIR /opt
 
-RUN python -m pip install transformers
+RUN python -m pip install --no-deps transformers
 
 # Installing WebUIs
 RUN git clone https://github.com/Haoming02/sd-webui-forge-classic /opt/SD-WebUI-Forge-Classic
 RUN git clone https://github.com/mcmonkeyprojects/SwarmUI /opt/SwarmUI
 
 WORKDIR /opt/SD-WebUI-Forge-Classic
-RUN python -m pip install -r requirements.txt && \
-    python -m pip install --prefer-binary \
+
+# Filter out torch/triton from requirements.txt before installing
+RUN grep -vE '^torch[^a-z]|^torch$|^triton' requirements.txt > requirements_filtered.txt && \
+    python -m pip install --no-deps -r requirements_filtered.txt && \
+    rm requirements_filtered.txt && \
+    python -m pip install --no-deps --prefer-binary \
       pillow opencv-python-headless imageio imageio-ffmpeg scipy "huggingface_hub[hf_transfer]" pyyaml
 
 # Use COPY link mode because we run with --base-directory in user's home, not in toolbox
 ENV UV_LINK_MODE="copy"
 
-RUN python -m pip install --prefer-binary \
+RUN python -m pip install --no-deps --prefer-binary \
       opencv-python-headless diffusers tokenizers accelerate \
       imageio[ffmpeg] easydict ftfy dashscope imageio-ffmpeg decord librosa
 
-# Install useful modules
-RUN pip install onnx onnxruntime onnxruntime-gpu sageattention==1.0.6 triton==3.2.0
+# Install useful modules (these are expected to not conflict with torch/triton)
+RUN pip install --no-deps onnx onnxruntime onnxruntime-gpu sageattention triton
 
 # Permissions & trims (keep compilers/headers)
 RUN chmod -R a+rwX /opt && chmod +x /opt/*.sh || true && \
@@ -71,6 +76,7 @@ RUN printf 'ulimit -S -c 0\n' > /etc/profile.d/90-nocoredump.sh && chmod 0644 /e
 
 # Add flash attention related env variables
 #ENV FLASH_ATTENTION_TRITON_AMD_ENABLE="TRUE" 
+
 RUN ln -sf $(hipconfig -p)/lib /opt/rocm
 ENV TRITON_HIP_LLD_PATH="/opt/rocm/llvm/bin/ld.lld"
 
